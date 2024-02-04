@@ -1,3 +1,4 @@
+import { Expressions } from "./src/domain/expression";
 import { VerificateurChaine } from "./src/domain/verificateurChaine";
 import * as os from "os";
 
@@ -23,7 +24,7 @@ describe('test works', () => {
 
         let resultat = new VerificateurChaine().verifier(chaine);
 
-        expect(resultat).toContain(chaine + os.EOL +"Bien dit !");
+        expect(resultat).toContain(chaine + os.EOL + Expressions.BIEN_DIT);
      })
 
      test.each([
@@ -33,8 +34,23 @@ describe('test works', () => {
      (chaine: string) => {
 
         let resultat = new VerificateurChaine().verifier(chaine);
+        
         let premiereLigne = resultat.split(os.EOL)[0];
         
-        expect(premiereLigne).toContain('Bonjour');
+        expect(premiereLigne).toContain(Expressions.BONJOUR);
+     })
+
+     test.each([
+        ...chaine
+    ])('QUAND on saisit une chaine ' +
+    'ALORS Au revoir est renvoyé après toute réponse',
+     (chaine: string) => {
+
+        let resultat = new VerificateurChaine().verifier(chaine);
+
+        let resultatSplit = resultat.split(os.EOL);
+        let derniereLigne = resultatSplit[resultatSplit.length - 1];
+        
+        expect(derniereLigne).toContain(Expressions.AU_REVOIR);
      })
 })

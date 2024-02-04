@@ -2,7 +2,6 @@ import * as os from 'os';
 import { Expressions } from './expression';
 export class VerificateurChaine {
 
-
     constructor() {
 
     }
@@ -15,7 +14,7 @@ export class VerificateurChaine {
             miroir = chaine + os.EOL + Expressions.BIEN_DIT;
          }
 
-        return miroir;
+        return Expressions.BONJOUR + os.EOL + miroir;
 
     }
 }
