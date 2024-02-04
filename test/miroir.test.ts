@@ -1,4 +1,5 @@
 import { Expressions } from "../src/domain/expression";
+import { LangueAnglaise } from "../src/domain/langueAnglaise";
 import { LangueFrançaise } from "../src/domain/langueFrançaise";
 import { VerificateurChaine } from "../src/domain/verificateurChaine";
 import * as os from "os";
@@ -67,6 +68,21 @@ describe('test works', () => {
      'ALORS il est renvoyé et le BIEN DIT de cette langue est renvoyé',
      (chaine: string) => {
         let langue = new LangueFrançaise();
+
+        let resultat = new VerificateurChaine(langue).verifier(chaine);
+
+        let resultatSplit = resultat.split(os.EOL)[2];
+
+        expect(resultatSplit).toContain(langue.feliciter())
+     })
+
+     test.each([
+        ...palindrome
+     ])('ETANT DONNE un utilisateur parlant une langue' +
+     'QUAND on entre un palindrome' +
+     'ALORS il est renvoyé et le BIEN DIT de cette langue est renvoyé',
+     (chaine: string) => {
+        let langue = new LangueAnglaise();
 
         let resultat = new VerificateurChaine(langue).verifier(chaine);
 
