@@ -1,3 +1,5 @@
+import { VerificateurChaine } from "./src/domain/verificateurChaine";
+
 describe('test works', () => {
     test.each([
         ['test'],
