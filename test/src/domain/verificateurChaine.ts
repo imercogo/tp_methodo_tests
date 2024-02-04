@@ -1,4 +1,5 @@
-
+import * as os from 'os';
+import { Expressions } from './expression';
 export class VerificateurChaine {
 
 
@@ -9,6 +10,10 @@ export class VerificateurChaine {
     public verifier(chaine:string) : string {
 
          let miroir = chaine.split('').reverse().join('')
+
+         if(chaine == miroir) {
+            miroir = chaine + os.EOL + Expressions.BIEN_DIT;
+         }
 
         return miroir;
 
