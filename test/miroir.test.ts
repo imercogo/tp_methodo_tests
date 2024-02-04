@@ -1,14 +1,12 @@
 import { VerificateurChaine } from "./src/domain/verificateurChaine";
 import * as os from "os";
 
+const chaine = ['test', 'radar', 'coucou', 'hello']
 const palindrome = ['engagelejeuquejelegagne', 'radar', 'girafarig'];
 
 describe('test works', () => {
     test.each([
-        ['test'],
-        ['radar'],
-        ['coucou'],
-        ['hello']
+        ...chaine
     ])('QUAND on saisit une chaine %s ' + 
     'ALORS elle est renvoyée en miroir',
     (chaine : any) => {
@@ -26,5 +24,17 @@ describe('test works', () => {
         let resultat = new VerificateurChaine().verifier(chaine);
 
         expect(resultat).toContain(chaine + os.EOL +"Bien dit !");
+     })
+
+     test.each([
+        ...chaine
+    ])('QUAND on saisit une chaine ' +
+     'ALORS Bonjour est renvoyé avant toute réponse',
+     (chaine: string) => {
+
+        let resultat = new VerificateurChaine().verifier(chaine);
+        let premiereLigne = resultat.split(os.EOL)[0];
+        
+        expect(premiereLigne).toContain('Bonjour');
      })
 })
