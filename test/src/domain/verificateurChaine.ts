@@ -14,7 +14,7 @@ export class VerificateurChaine {
             miroir = chaine + os.EOL + Expressions.BIEN_DIT;
          }
 
-        return Expressions.BONJOUR + os.EOL + miroir;
+        return Expressions.BONJOUR + os.EOL + miroir + os.EOL + Expressions.AU_REVOIR;
 
     }
 }
