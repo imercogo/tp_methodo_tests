@@ -122,4 +122,20 @@ describe('test works', () => {
 
         expect(resultatSplit).toContain(langue.saluer())
      })
+
+     test.each([
+        ...chaine
+     ])('ETANT DONNE un utilisateur parlant une langue' +
+     'QUAND on saisit une chaine' + 
+     'ALORS Au Revoir de cette langue est renvoyé après tout',
+     (chaine: string) => {
+        let langue = new LangueFake();
+
+        let resultat = new VerificateurChaine(langue).verifier(chaine);
+
+        let resultatSplit = resultat.split(os.EOL);
+        let derniereLigne = resultatSplit[resultatSplit.length - 1];
+
+        expect(derniereLigne).toContain(langue.quitter())
+     })
 })
