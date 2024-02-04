@@ -3,6 +3,8 @@ import { LangueAnglaise } from "../src/domain/langueAnglaise";
 import { LangueFrançaise } from "../src/domain/langueFrançaise";
 import { VerificateurChaine } from "../src/domain/verificateurChaine";
 import * as os from "os";
+import { LangueFake } from "./utilities/LangueFake";
+import { LangueStub } from "./utilities/LangueStub";
 
 const chaine = ['test', 'radar', 'coucou', 'hello']
 const palindrome = ['engagelejeuquejelegagne', 'radar', 'girafarig'];
@@ -13,7 +15,7 @@ describe('test works', () => {
     ])('QUAND on saisit une chaine %s ' + 
     'ALORS elle est renvoyée en miroir',
     (chaine : any) => {
-        let langue = new LangueFrançaise();
+        let langue = new LangueStub();
 
         let attendu = chaine.split('').reverse().join('');
         let resultat = new VerificateurChaine(langue).verifier(chaine);
@@ -28,7 +30,7 @@ describe('test works', () => {
 
         let resultat = new VerificateurChaine(langue).verifier(chaine);
 
-        expect(resultat).toContain(chaine + os.EOL + Expressions.BIEN_DIT);
+        expect(resultat).toContain(chaine + os.EOL + langue.feliciter());
      })
 
      test.each([
@@ -83,6 +85,21 @@ describe('test works', () => {
      'ALORS il est renvoyé et le BIEN DIT de cette langue est renvoyé',
      (chaine: string) => {
         let langue = new LangueAnglaise();
+
+        let resultat = new VerificateurChaine(langue).verifier(chaine);
+
+        let resultatSplit = resultat.split(os.EOL)[2];
+
+        expect(resultatSplit).toContain(langue.feliciter())
+     })
+
+     test.each([
+        ...palindrome
+     ])('ETANT DONNE un utilisateur parlant une langue' +
+     'QUAND on entre un palindrome' +
+     'ALORS il est renvoyé et le BIEN DIT de cette langue est renvoyé',
+     (chaine: string) => {
+        let langue = new LangueFake();
 
         let resultat = new VerificateurChaine(langue).verifier(chaine);
 
