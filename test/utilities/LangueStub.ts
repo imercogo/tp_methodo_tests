@@ -8,4 +8,8 @@ export class LangueStub implements LangueInterface {
     saluer(): string {
         return '';
     }
+
+    quitter(): string {
+        return '';
+    }
 }

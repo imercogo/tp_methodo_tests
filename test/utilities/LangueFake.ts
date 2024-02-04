@@ -6,6 +6,10 @@ export class LangueFake implements LangueInterface {
     }
 
     saluer(): string {
-        return 'Bien le bonjour'
+        return 'Bien le bonjour';
+    }
+
+    quitter(): string {
+        return 'Arvi';
     }
 }
