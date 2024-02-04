@@ -65,9 +65,9 @@ describe('test works', () => {
 
      test.each([
         ...palindrome
-     ])('ETANT DONNE un utilisateur parlant une langue' +
+     ])('ETANT DONNE un utilisateur parlant français' +
      'QUAND on entre un palindrome' +
-     'ALORS il est renvoyé et le BIEN DIT de cette langue est renvoyé',
+     'ALORS il est renvoyé et le BIEN DIT de la langue française',
      (chaine: string) => {
         let langue = new LangueFrançaise();
 
@@ -80,9 +80,9 @@ describe('test works', () => {
 
      test.each([
         ...palindrome
-     ])('ETANT DONNE un utilisateur parlant une langue' +
+     ])('ETANT DONNE un utilisateur parlant anglais' +
      'QUAND on entre un palindrome' +
-     'ALORS il est renvoyé et le BIEN DIT de cette langue est renvoyé',
+     'ALORS il est renvoyé et le BIEN DIT de la langue anglaise',
      (chaine: string) => {
         let langue = new LangueAnglaise();
 
@@ -95,9 +95,9 @@ describe('test works', () => {
 
      test.each([
         ...palindrome
-     ])('ETANT DONNE un utilisateur parlant une langue' +
+     ])('ETANT DONNE un utilisateur parlant une fausse langue' +
      'QUAND on entre un palindrome' +
-     'ALORS il est renvoyé et le BIEN DIT de cette langue est renvoyé',
+     'ALORS il est renvoyé et le BIEN DIT de la fausse langue',
      (chaine: string) => {
         let langue = new LangueFake();
 
@@ -106,5 +106,20 @@ describe('test works', () => {
         let resultatSplit = resultat.split(os.EOL)[2];
 
         expect(resultatSplit).toContain(langue.feliciter())
+     })
+
+     test.each([
+        ...chaine
+     ])('ETANT DONNE un utilisateur parlant une langue' +
+     'QUAND on saisit une chaine' + 
+     'ALORS Bonjour de cette langue est renvoyé avant tout',
+     (chaine: string) => {
+        let langue = new LangueFake();
+
+        let resultat = new VerificateurChaine(langue).verifier(chaine);
+
+        let resultatSplit = resultat.split(os.EOL)[0];
+
+        expect(resultatSplit).toContain(langue.saluer())
      })
 })

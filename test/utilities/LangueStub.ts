@@ -4,4 +4,8 @@ export class LangueStub implements LangueInterface {
     feliciter(): string {
         return '';
     }
+
+    saluer(): string {
+        return '';
+    }
 }
