@@ -1,4 +1,7 @@
 import { VerificateurChaine } from "./src/domain/verificateurChaine";
+import * as os from "os";
+
+const palindrome = ['engagelejeuquejelegagne', 'radar', 'girafarig'];
 
 describe('test works', () => {
     test.each([
@@ -14,4 +17,14 @@ describe('test works', () => {
         let resultat = new VerificateurChaine().verifier(chaine);
         expect(resultat).toContain(attendu);
     });
+
+    test.each([
+        ...palindrome
+    ])('QUAND on saisit un palindrome, ALORS celui-ci est renvoyé et il est renvoyé Bien dit !',
+     (chaine: string) => {
+
+        let resultat = new VerificateurChaine().verifier(chaine);
+
+        expect(resultat).toContain(chaine + os.EOL +"Bien dit !");
+     })
 })
