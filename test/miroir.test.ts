@@ -34,12 +34,13 @@ describe('test works', () => {
      (chaine: string) => {
 
         let resultat = new VerificateurChaine().verifier(chaine);
-        
+
         let premiereLigne = resultat.split(os.EOL)[0];
         
         expect(premiereLigne).toContain(Expressions.BONJOUR);
      })
 
+     
      test.each([
         ...chaine
     ])('QUAND on saisit une chaine ' +
