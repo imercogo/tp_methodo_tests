@@ -1,4 +1,5 @@
 import { Expressions } from "../src/domain/expression";
+import { LangueFrançaise } from "../src/domain/langueFrançaise";
 import { VerificateurChaine } from "../src/domain/verificateurChaine";
 import * as os from "os";
 
@@ -11,9 +12,10 @@ describe('test works', () => {
     ])('QUAND on saisit une chaine %s ' + 
     'ALORS elle est renvoyée en miroir',
     (chaine : any) => {
+        let langue = new LangueFrançaise();
 
         let attendu = chaine.split('').reverse().join('');
-        let resultat = new VerificateurChaine().verifier(chaine);
+        let resultat = new VerificateurChaine(langue).verifier(chaine);
         expect(resultat).toContain(attendu);
     });
 
@@ -21,8 +23,9 @@ describe('test works', () => {
         ...palindrome
     ])('QUAND on saisit un palindrome, ALORS celui-ci est renvoyé et il est renvoyé Bien dit !',
      (chaine: string) => {
+        let langue = new LangueFrançaise();
 
-        let resultat = new VerificateurChaine().verifier(chaine);
+        let resultat = new VerificateurChaine(langue).verifier(chaine);
 
         expect(resultat).toContain(chaine + os.EOL + Expressions.BIEN_DIT);
      })
@@ -32,8 +35,9 @@ describe('test works', () => {
     ])('QUAND on saisit une chaine ' +
      'ALORS Bonjour est renvoyé avant toute réponse',
      (chaine: string) => {
+        let langue = new LangueFrançaise();
 
-        let resultat = new VerificateurChaine().verifier(chaine);
+        let resultat = new VerificateurChaine(langue).verifier(chaine);
 
         let premiereLigne = resultat.split(os.EOL)[0];
         
@@ -46,8 +50,9 @@ describe('test works', () => {
     ])('QUAND on saisit une chaine ' +
     'ALORS Au revoir est renvoyé après toute réponse',
      (chaine: string) => {
+        let langue = new LangueFrançaise();
 
-        let resultat = new VerificateurChaine().verifier(chaine);
+        let resultat = new VerificateurChaine(langue).verifier(chaine);
 
         let resultatSplit = resultat.split(os.EOL);
         let derniereLigne = resultatSplit[resultatSplit.length - 1];
@@ -61,7 +66,7 @@ describe('test works', () => {
      'QUAND on entre un palindrome' +
      'ALORS il est renvoyé et le BIEN DIT de cette langue est renvoyé',
      (chaine: string) => {
-        let langue = new LangueFrancaise();
+        let langue = new LangueFrançaise();
 
         let resultat = new VerificateurChaine(langue).verifier(chaine);
 
