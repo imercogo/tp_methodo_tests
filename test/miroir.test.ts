@@ -169,4 +169,22 @@ describe('test works', () => {
 
          expect(resultatSplit).toContain(langue.saluer(momentDeLaJournee))
       })
+
+      
+     test.each(
+      casSalutations()
+      )('ETANT DONNE un utilisateur parlant une langue ' +
+      'ET que la période de la journée est <période> ' +
+      'QUAND on saisit une chaîne ' +
+      'ALORS <au revoir> de cette langue à cette période est envoyé après tout '+
+      'CAS %s', (momentDeLaJournee: MomentDeLaJournee, chaine: string) => {
+         let langue = new LangueFake();
+
+         let resultat = new VerificateurChaineBuilder().AyantPourLangue(langue).AyantPourMomentDeLaJournee(momentDeLaJournee).Build().verifier(chaine);
+         
+         let resultatSplit = resultat.split(os.EOL);
+         let derniereLigne = resultatSplit[resultatSplit.length - 1];
+
+         expect(resultatSplit).toContain(langue.quitter(momentDeLaJournee))
+      })
 })
