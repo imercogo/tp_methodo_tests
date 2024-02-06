@@ -6,14 +6,27 @@ import * as os from "os";
 import { LangueFake } from "./utilities/LangueFake";
 import { LangueStub } from "./utilities/LangueStub";
 import { VerificateurChaineBuilder } from "./utilities/verificateurChaineBuilder";
+import { MomentDeLaJournee } from "../src/domain/MomentDeLaJournee";
 
 const chaine = ['test', 'radar', 'coucou', 'hello']
 const palindrome = ['engagelejeuquejelegagne', 'radar', 'girafarig'];
-const momentDeLaJournée : MomentDeLaJournee[] = [MomentDeLaJournee.INCONNU, 
+const momentDeLaJournee : MomentDeLaJournee[] = [MomentDeLaJournee.INCONNU, 
    MomentDeLaJournee.MATIN,
    MomentDeLaJournee.APRES_MIDI,
    MomentDeLaJournee.SOIREE,
    MomentDeLaJournee.NUIT];
+
+   function casSalutations() {
+      const chaines: string[] = [...chaine, ...palindrome];
+      const cases: [MomentDeLaJournee, string][] = [];
+      for (let chaine of chaines) {
+          for (let moment of momentDeLaJournee) {
+              cases.push([moment, chaine])
+          }
+      }
+  
+      return cases;
+  }
 
 describe('test works', () => {
     test.each([
@@ -110,19 +123,19 @@ describe('test works', () => {
         expect(resultatSplit).toContain(langue.feliciter())
      })
 
-     test.each([
-        ...chaine
-     ])('ETANT DONNE un utilisateur parlant une langue' +
+     test.each(
+      casSalutations()
+     )('ETANT DONNE un utilisateur parlant une langue' +
      'QUAND on saisit une chaine' + 
      'ALORS Bonjour de cette langue est renvoyé avant tout',
-     (chaine: string) => {
+     (momentDeLaJournee: MomentDeLaJournee,chaine: string) => {
         let langue = new LangueFake();
 
-        let resultat = new VerificateurChaineBuilder().AyantPourLangue(langue).Build().verifier(chaine);
+        let resultat = new VerificateurChaineBuilder().AyantPourLangue(langue).AyantPourMomentDeLaJournee(momentDeLaJournee).Build().verifier(chaine);
 
         let resultatSplit = resultat.split(os.EOL)[0];
 
-        expect(resultatSplit).toContain(langue.saluer())
+        expect(resultatSplit).toContain(langue.saluer(momentDeLaJournee))
      })
 
      test.each([
@@ -141,19 +154,19 @@ describe('test works', () => {
         expect(derniereLigne).toContain(langue.quitter())
      })
 
-     test.each([
-      ...momentDeLaJournée, ...chaine
-     ])('ETANT DONNE un utilisateur parlant une langue ' +
+     test.each(
+      casSalutations()
+      )('ETANT DONNE un utilisateur parlant une langue ' +
       'ET que la période de la journée est <période> ' +
       'QUAND on saisit une chaîne ' +
       'ALORS <salutation> de cette langue à cette période est envoyé avant tout '+
-      'CAS %s', (momentDeLaJournée: MomentDeLaJournée, chaine: string) => {
+      'CAS %s', (momentDeLaJournee: MomentDeLaJournee, chaine: string) => {
          let langue = new LangueFake();
 
-         let resultat = new VerificateurChaineBuilder().AyantPourLangue(langue).AyantPourMomentDeLaJournée(momentDeLaJournée).Build().verifier(chaine);
+         let resultat = new VerificateurChaineBuilder().AyantPourLangue(langue).AyantPourMomentDeLaJournee(momentDeLaJournee).Build().verifier(chaine);
          
          let resultatSplit = resultat.split(os.EOL)[0];
 
-         expect(resultatSplit).toContain(langue.saluer(momentDeLaJournée))
+         expect(resultatSplit).toContain(langue.saluer(momentDeLaJournee))
       })
 })

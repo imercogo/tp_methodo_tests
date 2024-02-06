@@ -1,3 +1,4 @@
+import { MomentDeLaJournee } from "./MomentDeLaJournee";
 import { Expressions } from "./expression";
 import { LangueInterface } from "./langueInterface";
 
@@ -6,7 +7,9 @@ export class LangueFrançaise implements LangueInterface {
         return Expressions.BIEN_DIT;
     }
 
-    public saluer(): string {
+    public saluer(moment : MomentDeLaJournee): string {
+        if(moment === MomentDeLaJournee.SOIREE || moment === MomentDeLaJournee.NUIT )
+            return Expressions.BONSOIR;
         return Expressions.BONJOUR;
     }
 
