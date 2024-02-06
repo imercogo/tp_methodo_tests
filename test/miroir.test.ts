@@ -9,6 +9,11 @@ import { VerificateurChaineBuilder } from "./utilities/verificateurChaineBuilder
 
 const chaine = ['test', 'radar', 'coucou', 'hello']
 const palindrome = ['engagelejeuquejelegagne', 'radar', 'girafarig'];
+const momentDeLaJournée : MomentDeLaJournee[] = [MomentDeLaJournee.INCONNU, 
+   MomentDeLaJournee.MATIN,
+   MomentDeLaJournee.APRES_MIDI,
+   MomentDeLaJournee.SOIREE,
+   MomentDeLaJournee.NUIT];
 
 describe('test works', () => {
     test.each([
@@ -135,4 +140,20 @@ describe('test works', () => {
 
         expect(derniereLigne).toContain(langue.quitter())
      })
+
+     test.each([
+      ...momentDeLaJournée, ...chaine
+     ])('ETANT DONNE un utilisateur parlant une langue ' +
+      'ET que la période de la journée est <période> ' +
+      'QUAND on saisit une chaîne ' +
+      'ALORS <salutation> de cette langue à cette période est envoyé avant tout '+
+      'CAS %s', (momentDeLaJournée: MomentDeLaJournée, chaine: string) => {
+         let langue = new LangueFake();
+
+         let resultat = new VerificateurChaineBuilder().AyantPourLangue(langue).AyantPourMomentDeLaJournée(momentDeLaJournée).Build().verifier(chaine);
+         
+         let resultatSplit = resultat.split(os.EOL)[0];
+
+         expect(resultatSplit).toContain(langue.saluer(momentDeLaJournée))
+      })
 })
