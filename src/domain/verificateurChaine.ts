@@ -19,7 +19,7 @@ export class VerificateurChaine {
             miroir = chaine + os.EOL + this._langue.feliciter();
          }
 
-        return this._langue.saluer(this._moment) + os.EOL + miroir + os.EOL + this._langue.quitter();
+        return this._langue.saluer(this._moment) + os.EOL + miroir + os.EOL + this._langue.quitter(this._moment);
 
     }
 }

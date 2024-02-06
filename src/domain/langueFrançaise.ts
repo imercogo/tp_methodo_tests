@@ -13,7 +13,16 @@ export class LangueFrançaise implements LangueInterface {
         return Expressions.BONJOUR;
     }
 
-    public quitter(): string {
-        return Expressions.AU_REVOIR;
+    public quitter(moment : MomentDeLaJournee): string {
+        if(moment === MomentDeLaJournee.MATIN)
+            return Expressions.BONNE_JOURNEE;
+        if(moment === MomentDeLaJournee.APRES_MIDI)
+            return Expressions.BONNE_APRES_MIDI;
+        if(moment === MomentDeLaJournee.SOIREE)
+            return Expressions.BONNE_SOIREE;
+        if(moment === MomentDeLaJournee.NUIT)
+            return Expressions.BONNE_NUIT;
+
+        return Expressions.AU_REVOIR
     }
 }

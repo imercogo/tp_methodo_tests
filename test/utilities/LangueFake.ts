@@ -10,7 +10,7 @@ export class LangueFake implements LangueInterface {
         return 'Bien le bonjour/' + moment.toString();
     }
 
-    quitter(): string {
-        return 'Arvi';
+    quitter(moment : MomentDeLaJournee): string {
+        return 'Arvi/' + moment.toString()
     }
 }

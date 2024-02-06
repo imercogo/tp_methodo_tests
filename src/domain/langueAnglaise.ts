@@ -19,7 +19,7 @@ export class LangueAnglaise implements LangueInterface {
         return Expressions.HELLO;
     }
 
-    public quitter(): string {
-        return Expressions.AU_REVOIR
+    public quitter(moment : MomentDeLaJournee): string {
+        return Expressions.GOODBYE;
     }
 }

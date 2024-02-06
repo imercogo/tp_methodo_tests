@@ -18,4 +18,8 @@ export class Expressions {
     public static readonly BONSOIR = 'Bonsoir';
     
     public static readonly AU_REVOIR = 'Au revoir';
+    public static readonly BONNE_JOURNEE = 'Bonne journée';
+    public static readonly BONNE_APRES_MIDI = 'Bonne après-midi';
+    public static readonly BONNE_SOIREE = 'Bonne soirée';
+    public static readonly BONNE_NUIT = 'Bonne nuit';
 }

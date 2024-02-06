@@ -145,19 +145,19 @@ describe('test works', () => {
      'ALORS Au Revoir de cette langue est renvoyé après tout',
      (chaine: string) => {
         let langue = new LangueFake();
-
+        let momentDeLaJournee = MomentDeLaJournee.INCONNU;
         let resultat = new VerificateurChaineBuilder().AyantPourLangue(langue).Build().verifier(chaine);
 
         let resultatSplit = resultat.split(os.EOL);
         let derniereLigne = resultatSplit[resultatSplit.length - 1];
 
-        expect(derniereLigne).toContain(langue.quitter())
+        expect(derniereLigne).toContain(langue.quitter(momentDeLaJournee))
      })
 
      test.each(
       casSalutations()
       )('ETANT DONNE un utilisateur parlant une langue ' +
-      'ET que la période de la journée est <période> ' +
+      'ET que la période de la journée est %s ' +
       'QUAND on saisit une chaîne ' +
       'ALORS <salutation> de cette langue à cette période est envoyé avant tout '+
       'CAS %s', (momentDeLaJournee: MomentDeLaJournee, chaine: string) => {
@@ -174,10 +174,9 @@ describe('test works', () => {
      test.each(
       casSalutations()
       )('ETANT DONNE un utilisateur parlant une langue ' +
-      'ET que la période de la journée est <période> ' +
+      'ET que la période de la journée est %s ' +
       'QUAND on saisit une chaîne ' +
-      'ALORS <au revoir> de cette langue à cette période est envoyé après tout '+
-      'CAS %s', (momentDeLaJournee: MomentDeLaJournee, chaine: string) => {
+      'ALORS <au revoir> de cette langue à cette période est envoyé après tout', (momentDeLaJournee: MomentDeLaJournee, chaine: string) => {
          let langue = new LangueFake();
 
          let resultat = new VerificateurChaineBuilder().AyantPourLangue(langue).AyantPourMomentDeLaJournee(momentDeLaJournee).Build().verifier(chaine);
@@ -185,6 +184,6 @@ describe('test works', () => {
          let resultatSplit = resultat.split(os.EOL);
          let derniereLigne = resultatSplit[resultatSplit.length - 1];
 
-         expect(resultatSplit).toContain(langue.quitter(momentDeLaJournee))
+         expect(derniereLigne).toContain(langue.quitter(momentDeLaJournee))
       })
 })
