@@ -5,6 +5,7 @@ import { VerificateurChaine } from "../src/domain/verificateurChaine";
 import * as os from "os";
 import { LangueFake } from "./utilities/LangueFake";
 import { LangueStub } from "./utilities/LangueStub";
+import { VerificateurChaineBuilder } from "./utilities/verificateurChaineBuilder";
 
 const chaine = ['test', 'radar', 'coucou', 'hello']
 const palindrome = ['engagelejeuquejelegagne', 'radar', 'girafarig'];
@@ -18,7 +19,7 @@ describe('test works', () => {
         let langue = new LangueStub();
 
         let attendu = chaine.split('').reverse().join('');
-        let resultat = new VerificateurChaine(langue).verifier(chaine);
+        let resultat = VerificateurChaineBuilder.Default().verifier(chaine);
         expect(resultat).toContain(attendu);
     });
 
@@ -28,8 +29,7 @@ describe('test works', () => {
      (chaine: string) => {
         let langue = new LangueFrançaise();
 
-        let resultat = new VerificateurChaine(langue).verifier(chaine);
-
+        let resultat = VerificateurChaineBuilder.Default().verifier(chaine);
         expect(resultat).toContain(chaine + os.EOL + langue.feliciter());
      })
 
@@ -40,8 +40,7 @@ describe('test works', () => {
      (chaine: string) => {
         let langue = new LangueFrançaise();
 
-        let resultat = new VerificateurChaine(langue).verifier(chaine);
-
+        let resultat = VerificateurChaineBuilder.Default().verifier(chaine);
         let premiereLigne = resultat.split(os.EOL)[0];
         
         expect(premiereLigne).toContain(Expressions.BONJOUR);
@@ -55,8 +54,7 @@ describe('test works', () => {
      (chaine: string) => {
         let langue = new LangueFrançaise();
 
-        let resultat = new VerificateurChaine(langue).verifier(chaine);
-
+        let resultat = VerificateurChaineBuilder.Default().verifier(chaine);
         let resultatSplit = resultat.split(os.EOL);
         let derniereLigne = resultatSplit[resultatSplit.length - 1];
         
@@ -71,8 +69,7 @@ describe('test works', () => {
      (chaine: string) => {
         let langue = new LangueFrançaise();
 
-        let resultat = new VerificateurChaine(langue).verifier(chaine);
-
+        let resultat = new VerificateurChaineBuilder().AyantPourLangue(langue).Build().verifier(chaine);
         let resultatSplit = resultat.split(os.EOL)[2];
 
         expect(resultatSplit).toContain(langue.feliciter())
@@ -86,7 +83,7 @@ describe('test works', () => {
      (chaine: string) => {
         let langue = new LangueAnglaise();
 
-        let resultat = new VerificateurChaine(langue).verifier(chaine);
+        let resultat = new VerificateurChaineBuilder().AyantPourLangue(langue).Build().verifier(chaine);
 
         let resultatSplit = resultat.split(os.EOL)[2];
 
@@ -101,7 +98,7 @@ describe('test works', () => {
      (chaine: string) => {
         let langue = new LangueFake();
 
-        let resultat = new VerificateurChaine(langue).verifier(chaine);
+        let resultat = new VerificateurChaineBuilder().AyantPourLangue(langue).Build().verifier(chaine);
 
         let resultatSplit = resultat.split(os.EOL)[2];
 
@@ -116,7 +113,7 @@ describe('test works', () => {
      (chaine: string) => {
         let langue = new LangueFake();
 
-        let resultat = new VerificateurChaine(langue).verifier(chaine);
+        let resultat = new VerificateurChaineBuilder().AyantPourLangue(langue).Build().verifier(chaine);
 
         let resultatSplit = resultat.split(os.EOL)[0];
 
@@ -131,7 +128,7 @@ describe('test works', () => {
      (chaine: string) => {
         let langue = new LangueFake();
 
-        let resultat = new VerificateurChaine(langue).verifier(chaine);
+        let resultat = new VerificateurChaineBuilder().AyantPourLangue(langue).Build().verifier(chaine);
 
         let resultatSplit = resultat.split(os.EOL);
         let derniereLigne = resultatSplit[resultatSplit.length - 1];
