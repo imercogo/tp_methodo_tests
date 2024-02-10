@@ -1,5 +1,6 @@
 import { MomentDeLaJournee } from "../src/domain/MomentDeLaJournee";
 import { LangueAnglaise } from "../src/domain/langueAnglaise";
+import { LangueFrançaise } from "../src/domain/langueFrançaise";
 import { VerificateurChaineBuilder } from "./utilities/verificateurChaineBuilder";
 import * as os from "os";
 
@@ -30,6 +31,33 @@ describe('test recette', () => {
         expect(palindrome).toEqual(chaine)
         expect(felicitations).toEqual(anglais.feliciter())
         expect(derniereLigne).toEqual(anglais.quitter(moment))
+
+    })
+
+    test.each([
+        ['test'],
+        ['coucou']
+    ])('ÉTANT donné un utilisateur parlant Français ' +
+    'ET que la période de la journée est le matin ' +
+    'QUAND il saisit un non palindrome ' +
+    "ALORS on lui dit Bonjour, puis on renvoie le mot à l'envers, suivi de au revoir en français",
+    (chaine: any) => {
+        const moment: MomentDeLaJournee = MomentDeLaJournee.MATIN;
+        const français : LangueFrançaise = new LangueFrançaise();
+        const resultat = new VerificateurChaineBuilder()
+                                                        .AyantPourLangue(français)
+                                                        .AyantPourMomentDeLaJournee(moment)
+                                                        .Build().verifier(chaine);
+
+        var premiereLigne = resultat.split(os.EOL)[0];                                                
+        var attendu = resultat.split(os.EOL)[1];
+        var reverseChaine = chaine.split('').reverse().join('');
+        var derniereLigne = resultat.split(os.EOL)[2];
+
+        
+        expect(premiereLigne).toEqual(français.saluer(moment))
+        expect(attendu).toEqual(reverseChaine);
+        expect(derniereLigne).toEqual(français.quitter(moment))
 
     })
 })
