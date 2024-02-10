@@ -2,6 +2,8 @@ import { Expressions } from "../src/domain/expression";
 import { LangueAnglaise } from "../src/domain/langueAnglaise";
 import { LangueFrançaise } from "../src/domain/langueFrançaise";
 import { VerificateurChaine } from "../src/domain/verificateurChaine";
+import './utilities/StringMatcher.d.ts';
+import './utilities/StringMatcher';
 import * as os from "os";
 import { LangueFake } from "./utilities/LangueFake";
 import { LangueStub } from "./utilities/LangueStub";
@@ -38,7 +40,8 @@ describe('test works', () => {
 
         let attendu = chaine.split('').reverse().join('');
         let resultat = VerificateurChaineBuilder.Default().verifier(chaine);
-        expect(resultat).toContain(attendu);
+        // @ts-ignore
+        expect(resultat).étantLeMiroir(attendu);
     });
 
     test.each([
@@ -61,7 +64,8 @@ describe('test works', () => {
         let resultat = VerificateurChaineBuilder.Default().verifier(chaine);
         let premiereLigne = resultat.split(os.EOL)[0];
         
-        expect(premiereLigne).toContain(Expressions.BONJOUR);
+        // @ts-ignore
+        expect(premiereLigne).ayantPourPremièreLigne(Expressions.BONJOUR);
      })
 
      
@@ -76,7 +80,8 @@ describe('test works', () => {
         let resultatSplit = resultat.split(os.EOL);
         let derniereLigne = resultatSplit[resultatSplit.length - 1];
         
-        expect(derniereLigne).toContain(Expressions.AU_REVOIR);
+        // @ts-ignore
+        expect(derniereLigne).ayantPourDernièreLigne(Expressions.AU_REVOIR);
      })
 
      test.each([
@@ -88,9 +93,10 @@ describe('test works', () => {
         let langue = new LangueFrançaise();
 
         let resultat = new VerificateurChaineBuilder().AyantPourLangue(langue).Build().verifier(chaine);
-        let resultatSplit = resultat.split(os.EOL)[2];
+        let resultatSplit = resultat.split(os.EOL)[1] + os.EOL + resultat.split(os.EOL)[2];
 
-        expect(resultatSplit).toContain(langue.feliciter())
+        // @ts-ignore
+        expect(resultatSplit).étantUnPalindrome(chaine + os.EOL + langue.feliciter())
      })
 
      test.each([
@@ -103,9 +109,10 @@ describe('test works', () => {
 
         let resultat = new VerificateurChaineBuilder().AyantPourLangue(langue).Build().verifier(chaine);
 
-        let resultatSplit = resultat.split(os.EOL)[2];
+        let resultatSplit = resultat.split(os.EOL)[1] + os.EOL + resultat.split(os.EOL)[2];
 
-        expect(resultatSplit).toContain(langue.feliciter())
+        // @ts-ignore
+        expect(resultatSplit).étantUnPalindrome(chaine + os.EOL + langue.feliciter())
      })
 
      test.each([
@@ -118,9 +125,10 @@ describe('test works', () => {
 
         let resultat = new VerificateurChaineBuilder().AyantPourLangue(langue).Build().verifier(chaine);
 
-        let resultatSplit = resultat.split(os.EOL)[2];
+        let resultatSplit = resultat.split(os.EOL)[1] + os.EOL + resultat.split(os.EOL)[2];
 
-        expect(resultatSplit).toContain(langue.feliciter())
+        // @ts-ignore
+        expect(resultatSplit).étantUnPalindrome(chaine + os.EOL + langue.feliciter())
      })
 
      test.each(
@@ -135,7 +143,8 @@ describe('test works', () => {
 
         let resultatSplit = resultat.split(os.EOL)[0];
 
-        expect(resultatSplit).toContain(langue.saluer(momentDeLaJournee))
+        // @ts-ignore
+        expect(resultatSplit).ayantPourPremièreLigne(langue.saluer(momentDeLaJournee))
      })
 
      test.each([
@@ -151,7 +160,8 @@ describe('test works', () => {
         let resultatSplit = resultat.split(os.EOL);
         let derniereLigne = resultatSplit[resultatSplit.length - 1];
 
-        expect(derniereLigne).toContain(langue.quitter(momentDeLaJournee))
+        // @ts-ignore
+        expect(derniereLigne).ayantPourDernièreLigne(langue.quitter(momentDeLaJournee))
      })
 
      test.each(
@@ -167,7 +177,8 @@ describe('test works', () => {
          
          let resultatSplit = resultat.split(os.EOL)[0];
 
-         expect(resultatSplit).toContain(langue.saluer(momentDeLaJournee))
+         // @ts-ignore
+         expect(resultatSplit).ayantPourPremièreLigne(langue.saluer(momentDeLaJournee))
       })
 
       
@@ -184,6 +195,7 @@ describe('test works', () => {
          let resultatSplit = resultat.split(os.EOL);
          let derniereLigne = resultatSplit[resultatSplit.length - 1];
 
-         expect(derniereLigne).toContain(langue.quitter(momentDeLaJournee))
+         // @ts-ignore
+         expect(derniereLigne).ayantPourDernièreLigne(langue.quitter(momentDeLaJournee))
       })
 })
